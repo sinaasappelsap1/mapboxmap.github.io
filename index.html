@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Mapbox GL JS map with Legend</title>
+<meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+<link href="https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
+<script src="https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.js"></script>
+<script src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.1-dev/mapbox-gl-geocoder.min.js"></script>
+<link
+  rel="stylesheet"
+  href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v5.0.1-dev/mapbox-gl-geocoder.css"
+  type="text/css"
+/>
+</head>
+
+<body>
+<div id="map"></div>
+<div class="legend">
+    <h4>Real Estate of Vancouver</h4>
+    <div><span style="background-color: red;"></span> Expensive </div>
+    <div><span style="background-color: orange;"></span> Medium</div>
+    <div><span style="background-color: green;"></span> Cheap</div>
+</div>
+<script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYmlza3VpdHJvbGxlIiwiYSI6ImNsdGxwOHJncjE5ZTQybXF3c2M3eG8xM2sifQ.wXxOWz0IQ4cBUyjWMOzlBQ';
+    const map = new mapboxgl.Map({
+        container: 'map',
+        style: 'mapbox://styles/biskuitrolle/clxe1br3e001y01qn8aga2qpl', 
+        center: [-123.1207, 49.2827],
+        zoom: 14,
+        pitch: 60,
+        bearing: 17.6
+    });
+
+    // Legend
+    const legend = document.querySelector('.legend');
+    map.getContainer().appendChild(legend);
+    
+    const geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken, 
+        mapboxgl: mapboxgl, 
+        marker: false 
+    });
+
+    // Add the geocoder to the map
+    map.addControl(geocoder);
+
+</script>
+
+</body>
+</html>
