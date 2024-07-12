@@ -27,12 +27,33 @@
     mapboxgl.accessToken = 'pk.eyJ1IjoiYmlza3VpdHJvbGxlIiwiYSI6ImNsdGxwOHJncjE5ZTQybXF3c2M3eG8xM2sifQ.wXxOWz0IQ4cBUyjWMOzlBQ';
     const map = new mapboxgl.Map({
         container: 'map',
-        style: 'mapbox://styles/biskuitrolle/clxe1br3e001y01qn8aga2qpl', 
-        center: [-123.1207, 49.2827],
-        zoom: 14,
+        style: 'mapbox://styles/biskuitrolle/clyhy888m00xi01pnca28aogs', 
+        center: [-123.1107, 49.2690],
+        zoom: 12,
         pitch: 60,
-        bearing: 17.6
+        bearing: 14.6
     });
+
+    map.on('load', function() {
+    map.addLayer({
+        'id': 'choropleth-fill',
+        'type': 'fill',
+        'source': 'your-source',
+        'paint': {
+            'fill-color': '#888888',
+            'fill-opacity': 0.7 // fixed opacity
+        }
+    });
+
+    map.on('zoom', function() {
+        var zoom = map.getZoom();
+        if (zoom > 14) { //  zoom level
+            map.setPaintProperty('choropleth-fill', 'fill-opacity', 0); // Hide choropleth layer
+        } else {
+            map.setPaintProperty('choropleth-fill', 'fill-opacity', 0.6); // Show choropleth layer 
+        }
+    });
+});
 
     // Legend
     const legend = document.querySelector('.legend');
